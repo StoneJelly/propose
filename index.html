@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be My Girlfriend?</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<div class="photo top-photo show">
+  <img src="your.jpeg" alt="Your Photo">
+</div>
+
+<div class="photo bottom-photo show">
+  <img src="her.jpg" alt="Her Photo">
+</div>
+
+  <audio id="bgAudio" loop muted>
+  <source src="Hotline Bling - Drake low quality.mp3" type="audio/mpeg">
+  Your browser does not support the audio tag.
+  </audio>
+
+  <div class="heart-container"></div>
+
+  <div class="content">
+    <h1>Will you be my girlfriend? 🥺</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <div class="no-wrapper" id="noWrapper">
+        <button id="noBtn">No</button>
+      </div>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const noWrapper = document.getElementById('noWrapper');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const message = document.getElementById('message');
+
+    yesBtn.addEventListener('click', () => {
+        message.innerHTML = "Yayy !!! I'm so thankful and lucky to have you !!! Can't wait to see you soon !";
+        message.style.color = "black"; // Add this line to change text color
+  
+    // Confetti 🎉
+    confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+        });
+    });
+
+    noBtn.addEventListener('click', () => {
+    const padding = 50; // Avoid button near edge
+
+    // Restrict movement to top-left 60% of screen width and 50% of height
+    const maxX = (window.innerWidth * 0.6) - noWrapper.offsetWidth - padding;
+    const maxY = (window.innerHeight * 0.5) - noWrapper.offsetHeight - padding;
+
+    const newX = Math.floor(Math.random() * maxX);
+    const newY = Math.floor(Math.random() * maxY);
+
+    noWrapper.style.transform = `translate(${newX}px, ${newY}px)`;
+    });
+
+    yesBtn.addEventListener('click', () => {
+    message.innerHTML = "Yayy !!! I'm so thankful and lucky to have you !!! Can't wait to see you soon!";
+    message.style.color = "black"; // Add this line to change text color
+  
+    // Confetti 🎉
+    confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+    });
+
+  // Show photos with transition
+  document.querySelector('.top-photo').classList.add('show');
+  document.querySelector('.bottom-photo').classList.add('show');
+    });
+
+    
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = `${Math.random() * 100}%`;
+      document.querySelector(".heart-container").appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    const audio = document.getElementById('bgAudio');
+
+  // Unmute and play after any user interaction
+  document.addEventListener('click', () => {
+    audio.muted = false;
+    audio.play();
+  });
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+<div class="heart-background"></div>
+</html>

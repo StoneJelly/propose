@@ -1,0 +1,239 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: url('bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Remove all previous heart-related ::before and ::after styles */
+/* Add this new heart styling instead */
+
+.heart-background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px; /* Increased size */
+  height: 150px; /* Increased size */
+  z-index: -1;
+}
+
+.heart-background::before,
+.heart-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 75px; /* Half of total width */
+  height: 120px; /* Taller than wide */
+  background-color: red;
+  border-radius: 75px 75px 0 0;
+}
+
+.heart-background::before {
+  left: 75px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart-background::after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+/* Breathing animation */
+@keyframes breathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.heart-background {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+
+.photo {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.top-photo {
+  top: 20px;
+}
+
+.bottom-photo {
+  bottom: 20px;
+}
+
+.photo img {
+  max-height: 150px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.photo.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.content {
+  text-align: center;
+  color: black;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  z-index: 2;
+  width: 90%;
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 2.2em;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  position: relative;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background-color: #4CAF50;
+  color: white;
+  z-index: 2;
+}
+
+.no-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s ease;
+  z-index: 2;
+  pointer-events: all;
+  display: inline-block;
+}
+
+#noBtn:hover {
+  transform: none !important;
+}
+
+
+#noBtn {
+  background-color: #f44336;
+  color: white;
+}
+
+#message {
+  font-size: 22px;
+  margin-top: 20px;
+  color: #fff0f5;
+}
+
+/* Heart animation */
+.heart-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heart {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: red;
+  transform: rotate(45deg);
+  animation: float 5s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  top: 0;
+  left: -10px;
+}
+
+@keyframes float {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: 100%;
+    opacity: 0;
+  }
+}
+
+/* Responsive for iPhone */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    height: auto;
+    gap: 20px;
+  }
+
+  #message {
+    font-size: 18px;
+  }
+}
